@@ -1014,7 +1014,7 @@ def simplicial_set_embedding(
     graph.sum_duplicates()
     n_vertices = graph.shape[1]
 
-    if n_epochs <= 0:
+    if n_epochs < 0:
         # For smaller datasets we can use more epochs
         if graph.shape[0] <= 10000:
             n_epochs = 500
@@ -1454,7 +1454,7 @@ class UMAP(BaseEstimator):
         if self.n_components < 1:
             raise ValueError("n_components must be greater than 0")
         if self.n_epochs is not None and (
-            self.n_epochs <= 10 or not isinstance(self.n_epochs, int)
+            self.n_epochs < 0 or not isinstance(self.n_epochs, int)
         ):
             raise ValueError("n_epochs must be a positive integer of at least 10")
         if self.metric_kwds is None:
@@ -1955,7 +1955,7 @@ class UMAP(BaseEstimator):
                 self.graph_ = reset_local_connectivity(self.graph_)
 
         if self.n_epochs is None:
-            n_epochs = 0
+            n_epochs = -1
         else:
             n_epochs = self.n_epochs
 
